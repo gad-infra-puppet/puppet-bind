@@ -6,7 +6,14 @@ $TTL <%=zone_ttl%>
       <%=zone_retry%>   ; retry
       <%=zone_expiracy%>; expiracy
       <%=zone_ttl%> )   ; TTL
+<%- if zone_ns.is_a?(Array) -%>
+  <%- zone_ns.each do |ns| -%>
+      IN  NS  <%= ns %>.
+  <%- end -%>
+<%- else -%>
       IN NS <%=zone_ns%>.
+<%- end -%>
+
 <% if zone_origin -%>
 $ORIGIN <%=zone_origin%>.
 <% end -%>

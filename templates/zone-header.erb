@@ -1,17 +1,18 @@
 ; File managed by puppet
+$ORIGIN <%= name %>.
 $TTL <%=zone_ttl%>
-@ IN SOA <%=name%>. <%=zone_contact%>. (
+@ IN SOA <%=zone_soa%>. <%=zone_contact%>. (
       <%=zone_serial%>  ; serial
       <%=zone_refresh%> ; refresh
       <%=zone_retry%>   ; retry
       <%=zone_expiracy%>; expiracy
-      <%=zone_ttl%> )   ; TTL
+      <%=zone_ttl%> )   ; Negative cache TTL
 <%- if zone_ns.is_a?(Array) -%>
   <%- zone_ns.each do |ns| -%>
-      IN  NS  <%= ns %>.
+@     IN  NS  <%= ns %>.
   <%- end -%>
 <%- else -%>
-      IN NS <%=zone_ns%>.
+@    IN NS <%=zone_ns%>.
 <%- end -%>
 
 <% if zone_origin -%>

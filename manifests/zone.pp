@@ -19,6 +19,7 @@ define bind::zone (
   $ensure        = present,
   $zone_type     = 'master',
   $zone_ttl      = false,
+  $zone_soa      = false,
   $zone_contact  = false,
   $zone_serial   = false,
   $zone_refresh  = '3h',
@@ -77,6 +78,9 @@ define bind::zone (
           }
           if !$zone_ns {
             fail "No ns defined for ${name}!"
+          }
+          if !$zone_soa {
+            fail "No soa defined for ${name}!"
           }
           if !$zone_serial {
             fail "No serial defined for ${name}!"
